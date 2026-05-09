@@ -2,22 +2,28 @@ extends CharacterBody2D
 
 # --- Stats ---
 const SPEED = 150.0
+var max_health = 100
+var health = 100
 
 # --- Estado ---
 var is_attacking = false
+var is_dead = false
+var spawn_position: Vector2
 
 # --- Nodos ---
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_area: Area2D = $AttackArea
+@onready var health_bar: ProgressBar = $CanvasLayer/Healthbar
+@onready var death_label: Label = $CanvasLayer/DeathLabel
 
 func _ready():
-	attack_area.monitoring = false  # El área solo activa al atacar
+	attack_area.monitoring = false
+	spawn_position = global_position
 
 func _physics_process(_delta):
-	if is_attacking:
+	if is_attacking or is_dead:
 		move_and_slide()
-		return  # No mover mientras ataca
-
+		return
 	_handle_movement()
 	_handle_attack_input()
 	move_and_slide()
@@ -29,12 +35,10 @@ func _handle_movement():
 	var dir = Vector2.ZERO
 	dir.x = Input.get_axis("ui_left", "ui_right")
 	dir.y = Input.get_axis("ui_up", "ui_down")
-
 	if dir != Vector2.ZERO:
 		dir = dir.normalized()
 		velocity = dir * SPEED
 		anim.play("walk")
-		# Flip horizontal según dirección
 		anim.flip_h = dir.x < 0
 	else:
 		velocity = Vector2.ZERO
@@ -50,27 +54,46 @@ func _handle_attack_input():
 func _do_attack():
 	is_attacking = true
 	velocity = Vector2.ZERO
-
-	# Posicionar el AttackArea según donde mira el personaje
 	var dir_ataque = _get_attack_direction()
-	attack_area.position = dir_ataque * 30  # 30px delante del jugador
-
-	# Activar área de golpe
+	attack_area.position = dir_ataque * 30
 	attack_area.monitoring = true
-
-	# Reproducir animación
 	anim.play("attack")
-
-	# Esperar a que termine la animación
 	await anim.animation_finished
-
-	# Desactivar área
 	attack_area.monitoring = false
 	is_attacking = false
 	anim.play("idle")
 
 func _get_attack_direction() -> Vector2:
-	# La dirección del ataque apunta hacia el ratón
 	var mouse_pos = get_global_mouse_position()
-	var dir = (mouse_pos - global_position).normalized()
-	return dir
+	return (mouse_pos - global_position).normalized()
+
+# --------------------------------------------------
+# VIDA Y MUERTE
+# --------------------------------------------------
+func take_damage(amount):
+	if is_dead:
+		return
+	health -= amount
+	health_bar.value = health
+	if health <= 0:
+		die()
+
+func die():
+	is_dead = true
+	health = 0
+	health_bar.value = 0
+	anim.visible = false
+	attack_area.monitoring = false
+	death_label.visible = true
+
+	for i in range(5, 0, -1):
+		death_label.text = "Has muerto. Reapareciendo en " + str(i) + "..."
+		await get_tree().create_timer(1.0).timeout
+
+	# Respawn
+	health = max_health
+	health_bar.value = max_health
+	death_label.visible = false
+	anim.visible = true
+	is_dead = false
+	global_position = spawn_position

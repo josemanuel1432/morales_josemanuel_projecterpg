@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://behv2brs8d5dn" path="res://Tileset1.png" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://cjpf6e7cd1k8x" path="res://player.gd" id="2_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://bcoi3ml3m3fk1" path="res://Player.png" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bm0050d6hwtqv" path="res://enemy.tscn" id="4_1bvp3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1bvp3"]
 texture = ExtResource("1_0xm2m")
@@ -777,7 +778,7 @@ physics_layer_0/collision_layer = 3
 sources/0 = SubResource("TileSetAtlasSource_1bvp3")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7mycd"]
-size = Vector2(20, 22)
+size = Vector2(20, 26)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_h2yge"]
 animations = [{
@@ -819,11 +820,35 @@ layer_0/tile_data = PackedInt32Array(-65538, 0, 0, -131072, 0, 0, -131070, 0, 0,
 layer_1/name = "Layer1"
 layer_1/tile_data = PackedInt32Array(65537, 589824, 805306374, 196609, 589824, 805306374, -65535, 589824, 805306374, -196607, 589824, 805306374, -196605, 589824, 805306374, -327675, 589824, 805306374, -327677, 589824, 805306374, -196603, 589824, 805306374, -65533, 589824, 805306374, 65539, 655360, 7, 131075, 655360, 8, 65540, 720896, 7, 131076, 720896, 8, -65531, 655360, 7, -65530, 720896, 7, 6, 720896, 8, -196614, 524288, 0, -131077, 524288, 0, -65541, 524288, 0, -5, 524288, 0, 65530, 524288, 0)
 
-[node name="Player" type="CharacterBody2D" parent="." unique_id=1247544523]
+[node name="Player" type="CharacterBody2D" parent="." unique_id=1247544523 groups=["player"]]
 script = ExtResource("2_1bvp3")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="Player" unique_id=930600275]
+
+[node name="Healthbar" type="ProgressBar" parent="Player/CanvasLayer" unique_id=419574626]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 210.0
+offset_bottom = 30.0
+value = 100.0
+show_percentage = false
+
+[node name="DeathLabel" type="Label" parent="Player/CanvasLayer" unique_id=973933869]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -133.0
+offset_top = -11.5
+offset_right = 133.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Has muerto. Reapareciendo en 5..."
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=229416984]
-position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_7mycd")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=961337470]
@@ -836,6 +861,12 @@ sprite_frames = SubResource("SpriteFrames_h2yge")
 animation = &"attack"
 
 [node name="AttackArea" type="Area2D" parent="Player" unique_id=2122776429]
+position = Vector2(0, 1)
+collision_layer = 0
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/AttackArea" unique_id=2104670686]
 shape = SubResource("CircleShape2D_h2yge")
+
+[node name="Enemy" parent="." unique_id=2016257043 instance=ExtResource("4_1bvp3")]
+position = Vector2(-170, 92)
