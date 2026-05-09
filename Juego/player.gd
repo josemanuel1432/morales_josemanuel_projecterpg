@@ -59,6 +59,10 @@ func _do_attack():
 	attack_area.monitoring = true
 	anim.play("attack")
 	await anim.animation_finished
+	# Detectar enemigos en el área manualmente
+	for body in attack_area.get_overlapping_bodies():
+		if body != self and body.has_method("take_damage"):
+			body.take_damage(10)
 	attack_area.monitoring = false
 	is_attacking = false
 	anim.play("idle")

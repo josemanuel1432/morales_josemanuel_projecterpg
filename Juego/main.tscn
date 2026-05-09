@@ -863,7 +863,7 @@ animation = &"attack"
 [node name="AttackArea" type="Area2D" parent="Player" unique_id=2122776429]
 position = Vector2(0, 1)
 collision_layer = 0
-collision_mask = 0
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/AttackArea" unique_id=2104670686]
 shape = SubResource("CircleShape2D_h2yge")
