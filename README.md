@@ -18,10 +18,10 @@ El juego está en desarrollo. Esto es lo que hay hasta ahora y lo que queda:
 - [x] Sistema de ataque melee (click izquierdo)
 - [x] Area de ataque direccional
 - [ ] Animaciones de combate
-- [ ] Enemigos con comportamiento propio
+- [x] Enemigos con comportamiento propio
 - [ ] Sistema de hechizos con el mago
 - [ ] Mana y experiencia
-- [ ] Barra de vida, muerte y respawn
+- [x] Barra de vida, muerte y respawn
 - [ ] Bosses y reaparicion de enemigos
 - [ ] Chat con IA para generar hechizos
 
