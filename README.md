@@ -14,16 +14,21 @@ Es un RPG 2D con vista top-down. Te mueves por el mapa, peleas contra enemigos d
 
 El juego está en desarrollo. Esto es lo que hay hasta ahora y lo que queda:
 
-- [x] Movimiento del personaje (WASD)
-- [x] Sistema de ataque melee (click izquierdo)
-- [x] Area de ataque direccional
-- [ ] Animaciones de combate
-- [x] Enemigos con comportamiento propio
-- [ ] Sistema de hechizos con el mago
-- [ ] Mana y experiencia
-- [x] Barra de vida, muerte y respawn
-- [ ] Bosses y reaparicion de enemigos
-- [ ] Chat con IA para generar hechizos
+- [x] Movimiento del personaje (WASD).
+- [x] Sistema de ataque melee (click izquierdo).
+- [x] Sistema de bloqueo (click derecho (reduccion del 60% del daño)).
+- [x] Area de ataque direccional.
+- [ ] Animaciones de combate (opcional).
+- [x] Enemigos con comportamiento propio (sigue al jugador para atacarle).
+- [ ] Enemigos con distancia de activacion.
+- [ ] Hechizos.
+- [ ] Sistema de hechizos con el mago.
+- [ ] Experiencia/Barra XP + Nivel actual.
+- [ ] Barra maná.
+- [x] Barra de vida, muerte y respawn.
+- [x] Bosses/Enemigos.
+- [ ] Reaparicion de enemigos.
+- [ ] Chat con IA para generar hechizos.
 
 ---
 
