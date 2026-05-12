@@ -808,9 +808,10 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h2yge"]
-radius = 20.0
+radius = 12.0
 
 [node name="Main" type="Node2D" unique_id=1701657326]
+position = Vector2(-2, -1)
 
 [node name="TileMap" type="TileMap" parent="." unique_id=672557900]
 tile_set = SubResource("TileSet_lquwl")
@@ -852,7 +853,8 @@ text = "Has muerto. Reapareciendo en 5..."
 shape = SubResource("RectangleShape2D_7mycd")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=961337470]
-position = Vector2(17, 6)
+position = Vector2(16, 6)
+zoom = Vector2(1.5, 1.5)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player" unique_id=908162676]
 position = Vector2(-1.5258789e-05, 3.0517578e-05)

@@ -8,6 +8,7 @@ var health = 100
 # --- Estado ---
 var is_attacking = false
 var is_dead = false
+var is_blocking = false
 var spawn_position: Vector2
 
 # --- Nodos ---
@@ -24,6 +25,7 @@ func _physics_process(_delta):
 	if is_attacking or is_dead:
 		move_and_slide()
 		return
+	_handle_blocking()
 	_handle_movement()
 	_handle_attack_input()
 	move_and_slide()
@@ -31,6 +33,12 @@ func _physics_process(_delta):
 # --------------------------------------------------
 # MOVIMIENTO
 # --------------------------------------------------
+# --------------------------------------------------
+# BLOQUEO
+# --------------------------------------------------
+func _handle_blocking():
+	is_blocking = Input.is_action_pressed("click_derecho")
+
 func _handle_movement():
 	var dir = Vector2.ZERO
 	dir.x = Input.get_axis("ui_left", "ui_right")
@@ -39,7 +47,7 @@ func _handle_movement():
 		dir = dir.normalized()
 		velocity = dir * SPEED
 		anim.play("walk")
-		anim.flip_h = dir.x < 0
+		anim.flip_h = dir.x > 0
 	else:
 		velocity = Vector2.ZERO
 		anim.play("idle")
@@ -77,6 +85,8 @@ func _get_attack_direction() -> Vector2:
 func take_damage(amount):
 	if is_dead:
 		return
+	if is_blocking:
+		amount = int(amount * 0.5)  # Bloqueo reduce 60% del daño
 	health -= amount
 	health_bar.value = health
 	if health <= 0:
