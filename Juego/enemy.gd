@@ -55,6 +55,7 @@ func take_damage(amount):
 		die()
 
 func die():
+	player.gain_xp(10)
 	is_chasing = false
 	sprite.visible = false
 	health_bar.visible = false

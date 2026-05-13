@@ -4,6 +4,10 @@ extends CharacterBody2D
 const SPEED = 150.0
 var max_health = 100
 var health = 100
+var level = 1
+var xp = 0
+var xp_to_next_level = 100
+var melee_damage = 10
 
 # --- Estado ---
 var is_attacking = false
@@ -16,6 +20,8 @@ var spawn_position: Vector2
 @onready var attack_area: Area2D = $AttackArea
 @onready var health_bar: ProgressBar = $CanvasLayer/Healthbar
 @onready var death_label: Label = $CanvasLayer/DeathLabel
+@onready var xp_bar: ProgressBar = $CanvasLayer/XpBar
+@onready var level_label: Label = $CanvasLayer/LevelLabel
 
 func _ready():
 	attack_area.monitoring = false
@@ -70,7 +76,7 @@ func _do_attack():
 	# Detectar enemigos en el área manualmente
 	for body in attack_area.get_overlapping_bodies():
 		if body != self and body.has_method("take_damage"):
-			body.take_damage(10)
+			body.take_damage(melee_damage)
 	attack_area.monitoring = false
 	is_attacking = false
 	anim.play("idle")
@@ -86,7 +92,7 @@ func take_damage(amount):
 	if is_dead:
 		return
 	if is_blocking:
-		amount = int(amount * 0.5)  # Bloqueo reduce 60% del daño
+		amount = int(amount * 0.4)  # Bloqueo reduce 60% del daño
 	health -= amount
 	health_bar.value = health
 	if health <= 0:
@@ -111,3 +117,22 @@ func die():
 	anim.visible = true
 	is_dead = false
 	global_position = spawn_position
+
+func gain_xp(amount):
+	xp += amount
+	xp_bar.value = xp
+	if xp >= xp_to_next_level:
+		level_up()
+
+func level_up():
+	level += 1
+	xp -= xp_to_next_level
+	xp_to_next_level = 100 * level
+	max_health += 20
+	health = max_health
+	health_bar.max_value = max_health
+	health_bar.value = health
+	melee_damage += 5
+	xp_bar.max_value = xp_to_next_level
+	xp_bar.value = xp
+	level_label.text = "Nivel " + str(level)

@@ -20,14 +20,14 @@ El juego está en desarrollo. Esto es lo que hay hasta ahora y lo que queda:
 - [x] Area de ataque direccional.
 - [ ] Animaciones de combate (opcional).
 - [x] Enemigos con comportamiento propio (sigue al jugador para atacarle).
-- [ ] Enemigos con distancia de activacion.
+- [x] Enemigos con distancia de activacion.
 - [ ] Hechizos.
 - [ ] Sistema de hechizos con el mago.
-- [ ] Experiencia/Barra XP + Nivel actual.
-- [ ] Barra maná.
+- [x] Experiencia/Barra XP + Nivel actual.
+- [ ] Barra maná (funcional).
 - [x] Barra de vida, muerte y respawn.
 - [x] Bosses/Enemigos.
-- [ ] Reaparicion de enemigos.
+- [x] Reaparicion de enemigos.
 - [ ] Chat con IA para generar hechizos.
 
 ---
