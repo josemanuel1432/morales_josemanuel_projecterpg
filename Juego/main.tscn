@@ -898,6 +898,7 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/AttackArea" unique_id=2104670686]
 shape = SubResource("CircleShape2D_h2yge")
+disabled = true
 
 [node name="Enemy" parent="." unique_id=2016257043 instance=ExtResource("4_1bvp3")]
 position = Vector2(-204, 80)
