@@ -24,7 +24,7 @@ El juego está en desarrollo. Esto es lo que hay hasta ahora y lo que queda:
 - [ ] Hechizos.
 - [ ] Sistema de hechizos con el mago.
 - [x] Experiencia/Barra XP + Nivel actual.
-- [ ] Barra maná (funcional).
+- [x] Barra maná (casi funcional).
 - [x] Barra de vida, muerte y respawn.
 - [x] Bosses/Enemigos.
 - [x] Reaparicion de enemigos.
